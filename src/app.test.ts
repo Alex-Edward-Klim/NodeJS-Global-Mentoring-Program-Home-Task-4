@@ -20,13 +20,13 @@ describe('Test API on a real DataBase', () => {
 
   describe('get user by id', () => {
     test('should respond with 200 and contain user data', async () => {
-      const response = await request(app).get('/api/users/51471fb0-3cb0-433c-8da0-d686379a7371').send();
+      const response = await request(app).get('/api/users/c1d6f40b-5bb9-422f-958c-e6fe8db24046').send();
 
       expect(response.statusCode).toBe(200);
       expect(response.body.login).toEqual('a');
       expect(response.body.password).toEqual('123xyz');
-      expect(response.body.age).toEqual(18);
-      expect(response.body.id).toEqual('51471fb0-3cb0-433c-8da0-d686379a7371');
+      expect(response.body.age).toEqual('18');
+      expect(response.body.id).toEqual('c1d6f40b-5bb9-422f-958c-e6fe8db24046');
     });
   });
 
@@ -75,12 +75,12 @@ describe('Test API on a real DataBase', () => {
 
   describe('update user by id', () => {
     test('should respond with 200 and contain updated user data', async () => {
-      const response = await request(app).patch('/api/users/1da75c56-4874-49e2-a879-65663105ec95').send({
+      const response = await request(app).patch('/api/users/106f39d7-b67a-429e-882a-d1b5551bb581').send({
         age: 19,
       });
 
       expect(response.statusCode).toBe(200);
-      expect(response.body.age).toEqual(19);
+      expect(response.body.age).toEqual('19');
     });
   });
 
@@ -98,4 +98,3 @@ describe('Test API on a real DataBase', () => {
     });
   });
 });
-// dataBase.close();

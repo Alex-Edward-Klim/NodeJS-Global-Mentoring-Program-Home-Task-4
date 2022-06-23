@@ -1,7 +1,7 @@
 import { Op } from 'sequelize';
 
 import { UserType } from '../types/user';
-import User from '../models/user';
+import { User } from '../models/index';
 
 export const getAllUsersFromDataBase = async (
   limit: number | undefined,

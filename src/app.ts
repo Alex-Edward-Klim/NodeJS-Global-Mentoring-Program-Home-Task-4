@@ -3,6 +3,7 @@ import express, { NextFunction, Request, Response } from 'express';
 import 'express-async-errors';
 
 import usersRoutes from './routes/users';
+import groupsRoutes from './routes/groups';
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/api/users', usersRoutes);
+app.use('/api/groups', groupsRoutes);
 
 app.use((req, res) => {
   const err = {
