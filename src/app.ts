@@ -5,6 +5,8 @@ import 'express-async-errors';
 import usersRoutes from './routes/users';
 import groupsRoutes from './routes/groups';
 
+import addUsersToGroupRouter from './routes/addUsersToGroup';
+
 const app = express();
 
 app.use((req, res, next) => {
@@ -19,6 +21,8 @@ app.use((req, res, next) => {
 
 app.use('/api/users', usersRoutes);
 app.use('/api/groups', groupsRoutes);
+
+app.use('/api/addUsersToGroup', addUsersToGroupRouter);
 
 app.use((req, res) => {
   const err = {
