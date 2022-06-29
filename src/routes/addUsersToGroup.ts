@@ -1,24 +1,35 @@
 import express, { Request, Response } from 'express';
 
+import dataBase from '../data-access/dataBase';
+
 import { Group, User } from '../models/index';
 
 const addUsersToGroup = async (groupId: any, userIds: any) => {
-  const group: any = await Group.findOne({
-    where: {
-      id: groupId,
-    },
-  });
+  const t = await dataBase.transaction();
 
-  const users: any = await User.findAll({
-    where: {
-      id: userIds,
-    },
-  });
+  try {
+    const group: any = await Group.findOne({
+      where: {
+        id: groupId,
+      },
+    });
 
-  if (group && users.length > 0) {
-    return group.addUsers(users);
+    const users: any = await User.findAll({
+      where: {
+        id: userIds,
+      },
+    });
+
+    if (group && users.length > 0) {
+      const UsersAddedToGroup = await group.addUsers(users);
+      await t.commit();
+      return UsersAddedToGroup;
+    }
+    throw new Error('Incorrect request data');
+  } catch (err) {
+    await t.rollback();
+    throw err;
   }
-  return null;
 };
 
 const router = express.Router();
@@ -29,7 +40,7 @@ router.post('/', async (req: Request, res: Response) => {
   const UsersAddedToGroup = await addUsersToGroup(groupId, userIds);
 
   if (!UsersAddedToGroup) {
-    res.status(500).send('Error: wrong request data');
+    throw new Error('Incorrect request data');
   } else {
     res.status(200).send('Users Added To Group');
   }
