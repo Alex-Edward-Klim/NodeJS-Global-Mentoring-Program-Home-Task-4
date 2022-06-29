@@ -1,8 +1,10 @@
-import { Group } from '../models/index';
+import { Group, User } from '../models/index';
 import { GroupType } from '../types/group';
 
 export const getAllGroupsFromDataBase = async () => {
-  const groups = await Group.findAll();
+  const groups = await Group.findAll({
+    include: [User],
+  });
   return groups;
 };
 
@@ -11,6 +13,7 @@ export const getGroupByIdFromDataBase = async (id: string) => {
     where: {
       id,
     },
+    include: [User],
   });
   return group;
 };
@@ -20,6 +23,7 @@ export const getGroupByNameFromDataBase = async (name: string) => {
     where: {
       name,
     },
+    include: [User],
   });
   return group;
 };

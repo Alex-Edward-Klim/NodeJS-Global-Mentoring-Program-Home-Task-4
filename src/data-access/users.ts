@@ -1,7 +1,7 @@
 import { Op } from 'sequelize';
 
 import { UserType } from '../types/user';
-import { User } from '../models/index';
+import { Group, User } from '../models/index';
 
 export const getAllUsersFromDataBase = async (
   limit: number | undefined,
@@ -17,6 +17,7 @@ export const getAllUsersFromDataBase = async (
       : undefined,
     limit,
     order: loginSubstring || limit ? [['login', 'ASC']] : undefined,
+    include: [Group],
   });
   return users;
 };
@@ -26,6 +27,7 @@ export const getUserByIdFromDataBase = async (id: string) => {
     where: {
       id,
     },
+    include: [Group],
   });
   return user;
 };
@@ -35,6 +37,7 @@ export const getUserByLoginFromDataBase = async (login: string) => {
     where: {
       login,
     },
+    include: [Group],
   });
   return user;
 };
