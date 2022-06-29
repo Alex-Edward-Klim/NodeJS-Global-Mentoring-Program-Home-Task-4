@@ -6,6 +6,7 @@ import usersRoutes from './routes/users';
 import groupsRoutes from './routes/groups';
 
 import addUsersToGroupRouter from './routes/addUsersToGroup';
+import removeUsersFromGroupRouter from './routes/removeUsersFromGroup';
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use('/api/users', usersRoutes);
 app.use('/api/groups', groupsRoutes);
 
 app.use('/api/addUsersToGroup', addUsersToGroupRouter);
+app.use('/api/removeUsersFromGroup', removeUsersFromGroupRouter);
 
 app.use((req, res) => {
   const err = {
